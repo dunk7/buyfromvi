@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>buyfromvi.com - Violette's Pre-Loved Treasures</title>
     <script async src="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.js"></script>
-    <div hidden id="snipcart" data-api-key="YOUR_SNIPCART_API_KEY"></div>
+    <div hidden id="snipcart" data-api-key="ZTk5ZmZjZjctNmZlMC00MjFhLWEyNWYtZWJmMGY3ZjNjYzc4NjM4NzM1MTA1MjU4MTM4MjE2"></div>
     <style>
         /* Reset and Base Styles */
         * {
@@ -67,10 +67,6 @@
             box-shadow: 0 3px 8px rgba(255,102,178,0.3);
         }
 
-        .cart-button:hover {
-            transform: scale(1.05);
-        }
-
         /* Product Gallery */
         .gallery-container {
             flex: 1;
@@ -111,19 +107,6 @@
             margin-top: auto;
         }
 
-        .product-title {
-            font-size: 1.4rem;
-            color: #2d2d2d;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-price {
-            font-size: 1.6rem;
-            color: #ff66b2;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
         /* About Section */
         .about-section {
             background: linear-gradient(135deg, #fff0f7, #ffffff);
@@ -149,17 +132,6 @@
             box-shadow: 0 8px 16px rgba(255,102,178,0.2);
         }
 
-        .about-text {
-            text-align: center;
-            max-width: 600px;
-        }
-
-        .about-text h2 {
-            color: #ff66b2;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
         /* Footer */
         .footer {
             background: #ff66b2;
@@ -169,66 +141,40 @@
             margin-top: auto;
         }
 
-        .footer p {
-            margin: 0.3rem 0;
-        }
-
-        /* Snipcart Overrides */
+        /* Modern Snipcart Overrides */
         .snipcart-modal__container {
-            border-radius: 20px !important;
-            overscroll-behavior: contain !important;
+            border-radius: 24px !important;
+            overflow: hidden !important;
         }
 
         .snipcart-modal__close-icon {
-            color: #ff66b2 !important;
-            font-size: 2rem !important;
-            padding: 15px !important;
-            transition: transform 0.2s ease !important;
+            color: white !important;
+            background: #ff66b2 !important;
+            border-radius: 50% !important;
+            width: 40px !important;
+            height: 40px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 0 !important;
+            transition: all 0.3s ease !important;
         }
 
         .snipcart-modal__close-icon:hover {
-            transform: scale(1.2) !important;
+            transform: scale(1.1) !important;
+            background: #ff4da1 !important;
         }
 
-        .snipcart-loader__spinner {
-            display: none !important;
+        .snipcart-button-primary {
+            background: #ff66b2 !important;
+            border-radius: 12px !important;
+            transition: transform 0.2s ease !important;
         }
 
-        /* Responsive Design */
-        @media (min-width: 768px) {
-            .gallery-container {
-                padding: 2rem;
-            }
-
-            .product-card {
-                width: 400px;
-            }
-
-            .about-content {
-                flex-direction: row;
-                text-align: left;
-                gap: 3rem;
-            }
-
-            .about-text {
-                text-align: left;
-            }
-        }
-
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #fff0f7;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #ffb3d9;
-            border-radius: 10px;
+        /* Smooth Scroll Fix */
+        .gallery-container {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
     </style>
 </head>
@@ -241,7 +187,6 @@
     </header>
 
     <main class="gallery-container">
-        <!-- Product 1 -->
         <article class="product-card">
             <img src="images/product-1.jpg" alt="Gentle Teddy Bear" class="product-image">
             <div class="product-details">
@@ -257,7 +202,6 @@
             </div>
         </article>
 
-        <!-- Product 2 -->
         <article class="product-card">
             <img src="images/product-2.jpg" alt="Miniature Dollhouse" class="product-image">
             <div class="product-details">
@@ -273,7 +217,6 @@
             </div>
         </article>
 
-        <!-- Product 3 -->
         <article class="product-card">
             <img src="images/product-3.jpg" alt="Rainbow Puzzle" class="product-image">
             <div class="product-details">
@@ -290,81 +233,70 @@
         </article>
     </main>
 
-    <!-- About Section -->
     <section class="about-section">
         <div class="about-content">
             <img src="images/violet.jpg" alt="Violette" class="creator-avatar">
             <div class="about-text">
                 <h2>Meet Violette 🌸</h2>
                 <p>Hi! I'm Violette, a 10-year-old entrepreneur from Mercer Island! What started as a lemonade-style toy stand at Luther Burbank Park has grown into my very own online store. Every toy is gently loved and ready for new adventures!</p>
-                <p style="margin-top: 1rem;">"I wash and fix every toy myself - mom helps with the website!"</p>
+                <p style="margin-top: 1rem;">"I wash and fix every toy myself - with help from my big brother!"</p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <p>📍 Mercer Island, WA • 🧸 Since 2023</p>
-        <p>📧 contact@buyfromvi.com • 👧🏼 Managed by Violette (with mom's help)</p>
+        <p>📧 contact@buyfromvi.com • 👧🏼 Managed by Violette (with big brother's help)</p>
         <p>© 2024 buyfromvi.com - Where pre-loved toys find new homes!</p>
     </footer>
 
     <script>
-        // Enhanced Swipe Logic
+        // Butter-smooth swipe logic
         const gallery = document.querySelector('.gallery-container');
-        let isDragging = false;
+        let isDown = false;
         let startX;
         let scrollLeft;
-        let momentumID;
-        let velocity = 0;
-        const decay = 0.95;
+        let animationFrame;
 
-        const startDrag = (e) => {
-            isDragging = true;
-            startX = (e.pageX || e.touches[0].pageX) - gallery.offsetLeft;
+        const handleMouseDown = (e) => {
+            isDown = true;
+            startX = e.pageX - gallery.offsetLeft;
             scrollLeft = gallery.scrollLeft;
-            gallery.style.cursor = 'grabbing';
-            cancelAnimationFrame(momentumID);
+            cancelAnimationFrame(animationFrame);
         };
 
-        const dragMove = (e) => {
-            if (!isDragging) return;
-            const x = (e.pageX || e.touches[0].pageX) - gallery.offsetLeft;
-            const dragDistance = (x - startX);
-            velocity = dragDistance * 0.3;
-            gallery.scrollLeft = scrollLeft - dragDistance;
+        const handleMouseMove = (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - gallery.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            gallery.scrollLeft = scrollLeft - walk;
         };
 
-        const endDrag = () => {
-            isDragging = false;
-            gallery.style.cursor = 'grab';
-            
-            const applyMomentum = () => {
-                if (Math.abs(velocity) > 0.5) {
-                    gallery.scrollLeft += velocity;
-                    velocity *= decay;
-                    momentumID = requestAnimationFrame(applyMomentum);
-                }
-            };
-            applyMomentum();
+        const handleMouseUp = () => {
+            isDown = false;
+            const momentum = gallery.scrollLeft - scrollLeft;
+            animateMomentum(momentum * 0.5);
+        };
+
+        const animateMomentum = (velocity) => {
+            if (Math.abs(velocity) > 0.5) {
+                gallery.scrollLeft += velocity;
+                velocity *= 0.95;
+                animationFrame = requestAnimationFrame(() => animateMomentum(velocity));
+            }
         };
 
         // Event Listeners
-        gallery.addEventListener('mousedown', startDrag);
-        gallery.addEventListener('mousemove', dragMove);
-        gallery.addEventListener('mouseup', endDrag);
-        gallery.addEventListener('mouseleave', endDrag);
+        gallery.addEventListener('mousedown', handleMouseDown);
+        gallery.addEventListener('mousemove', handleMouseMove);
+        gallery.addEventListener('mouseup', handleMouseUp);
+        gallery.addEventListener('mouseleave', handleMouseUp);
 
-        gallery.addEventListener('touchstart', startDrag);
-        gallery.addEventListener('touchmove', dragMove);
-        gallery.addEventListener('touchend', endDrag);
-
-        // Fix scroll lock issue
-        document.addEventListener('snipcart.ready', () => {
-            Snipcart.events.on('cart.closed', () => {
-                document.body.style.overflow = 'auto';
-            });
-        });
+        // Touch support
+        gallery.addEventListener('touchstart', (e) => handleMouseDown(e.touches[0]));
+        gallery.addEventListener('touchmove', (e) => handleMouseMove(e.touches[0]));
+        gallery.addEventListener('touchend', handleMouseUp);
     </script>
 </body>
 </html>
