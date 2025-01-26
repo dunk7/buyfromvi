@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>buyfromvi.com - Violette's Pre-Loved Treasures</title>
     <script async src="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.js"></script>
     <div hidden id="snipcart" data-api-key="ZTk5ZmZjZjctNmZlMC00MjFhLWEyNWYtZWJmMGY3ZjNjYzc4NjM4NzM1MTA1MjU4MTM4MjE2"></div>
@@ -21,6 +21,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
         /* Header */
@@ -64,35 +65,54 @@
             font-size: 1rem;
             transition: transform 0.2s ease;
             box-shadow: 0 3px 8px rgba(255,102,178,0.3);
+            white-space: nowrap;
+        }
+
+        @media (max-width: 480px) {
+            .cart-button {
+                padding: 0.7rem;
+                width: auto;
+            }
+            .cart-button span:first-child {
+                display: none;
+            }
         }
 
         /* Product Gallery */
         .gallery-wrapper {
             position: relative;
-            margin: 2rem auto;
-            max-width: 1200px;
-            padding: 0 2rem;
+            margin: 2rem 0;
         }
 
         .gallery-container {
             display: flex;
             overflow-x: auto;
+            scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding: 0 1rem;
             gap: 2rem;
-            padding-bottom: 1rem;
-            scrollbar-width: none;
         }
 
         .gallery-container::-webkit-scrollbar {
-            display: none;
+            height: 6px;
+            background: #fff0f7;
+        }
+
+        .gallery-container::-webkit-scrollbar-thumb {
+            background: #ff66b2;
+            border-radius: 4px;
         }
 
         .product-card {
-            flex: 0 0 300px;
+            flex: 0 0 80vw;
+            max-width: 350px;
             background: white;
             border-radius: 20px;
             padding: 1.5rem;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            scroll-snap-align: center;
+            margin: 0 1rem;
         }
 
         .product-image {
@@ -101,6 +121,19 @@
             object-fit: contain;
             margin-bottom: 1rem;
             border-radius: 15px;
+        }
+
+        .product-details {
+            text-align: center;
+        }
+
+        .snipcart-add-item {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border-radius: 15px !important;
+            margin-top: 1rem;
+            border: none !important;
         }
 
         /* Navigation Arrows */
@@ -117,45 +150,42 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255,102,178,0.3);
             border: none;
             z-index: 2;
-            opacity: 0.9;
         }
 
-        .nav-arrow--left { left: 0; }
-        .nav-arrow--right { right: 0; }
-
-        /* Quantity Selector */
-        .snipcart-item-quantity__button {
-            width: 40px !important;
-            height: 40px !important;
-            border-radius: 10px !important;
-            background: #ff66b2 !important;
+        .nav-arrow--left {
+            left: 1rem;
         }
 
-        .snipcart-item-quantity__button::before {
-            content: "";
-            border: solid white;
-            border-width: 0 3px 3px 0;
-            display: inline-block;
-            padding: 4px;
+        .nav-arrow--right {
+            right: 1rem;
         }
 
-        .snipcart-item-quantity__button--increment::before {
-            transform: rotate(-45deg);
-            margin-left: -2px;
+        /* About Section */
+        .about-section {
+            background: linear-gradient(135deg, #fff0f7, #ffffff);
+            padding: 3rem 1rem;
+            margin-top: 3rem;
         }
 
-        .snipcart-item-quantity__button--decrement::before {
-            transform: rotate(135deg);
-            margin-right: -2px;
+        .about-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
         }
 
-        .snipcart-item-quantity__quantity {
-            width: 60px !important;
-            height: 40px !important;
-            border-radius: 10px !important;
-            border: 2px solid #ffb3d9 !important;
+        .creator-avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ff66b2;
+            box-shadow: 0 8px 16px rgba(255,102,178,0.2);
         }
 
         /* Footer */
@@ -168,6 +198,64 @@
             font-size: 0.9rem;
             border-radius: 20px 20px 0 0;
         }
+
+        /* Cart Overrides */
+        .snipcart-item-line__image {
+            width: 80px !important;
+            height: 80px !important;
+            min-width: 80px !important;
+            margin-right: 1.5rem !important;
+            border-radius: 12px !important;
+            object-fit: contain !important;
+        }
+
+        .snipcart-modal__container {
+            border-radius: 20px !important;
+            overflow: hidden !important;
+            max-width: 95% !important;
+        }
+
+        .snipcart-item-quantity__quantity {
+            min-width: 50px !important;
+            padding: 0.5rem !important;
+            border-radius: 10px !important;
+            border: 2px solid #ff66b2 !important;
+        }
+
+        .snipcart-item-quantity__button {
+            width: 40px !important;
+            height: 40px !important;
+            border-radius: 50% !important;
+            background: #ff66b2 !important;
+            transition: transform 0.2s ease !important;
+        }
+
+        .snipcart-item-quantity__button svg {
+            width: 18px !important;
+            height: 18px !important;
+            stroke-width: 3px !important;
+        }
+
+        .snipcart-item-line__header {
+            align-items: center !important;
+        }
+
+        .snipcart-button-primary {
+            background: #ff66b2 !important;
+            border-radius: 12px !important;
+            padding: 1rem !important;
+        }
+
+        @media (max-width: 480px) {
+            .snipcart-item-line__details {
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+            }
+            
+            .snipcart-item-line__price {
+                margin-left: 0 !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -179,8 +267,8 @@
     </header>
 
     <div class="gallery-wrapper">
-        <button class="nav-arrow nav-arrow--left" onclick="scroll(-1)">←</button>
-        <button class="nav-arrow nav-arrow--right" onclick="scroll(1)">→</button>
+        <button class="nav-arrow nav-arrow--left" onclick="scrollToPrevious()">←</button>
+        <button class="nav-arrow nav-arrow--right" onclick="scrollToNext()">→</button>
         
         <div class="gallery-container" id="gallery">
             <article class="product-card">
@@ -188,7 +276,7 @@
                 <div class="product-details">
                     <h2>Gentle Teddy Bear</h2>
                     <p>$8.99</p>
-                    <button class="snipcart-add-item"
+                    <button class="cart-button snipcart-add-item"
                         data-item-id="1"
                         data-item-price="8.99"
                         data-item-name="Gentle Teddy Bear"
@@ -203,7 +291,7 @@
                 <div class="product-details">
                     <h2>Miniature Dollhouse</h2>
                     <p>$14.99</p>
-                    <button class="snipcart-add-item"
+                    <button class="cart-button snipcart-add-item"
                         data-item-id="2"
                         data-item-price="14.99"
                         data-item-name="Miniature Dollhouse"
@@ -218,7 +306,7 @@
                 <div class="product-details">
                     <h2>Rainbow Puzzle</h2>
                     <p>$6.99</p>
-                    <button class="snipcart-add-item"
+                    <button class="cart-button snipcart-add-item"
                         data-item-id="3"
                         data-item-price="6.99"
                         data-item-name="Rainbow Puzzle"
@@ -248,18 +336,36 @@
     </footer>
 
     <script>
-        // Simple Scroll Function
+        // Simplified Scroll System
         const gallery = document.getElementById('gallery');
-        const cardWidth = 300 + 32; // card width + gap
+        let currentScroll = 0;
+        
+        function getCardWidth() {
+            return gallery.firstElementChild.offsetWidth + 32; // card + gap
+        }
 
-        function scroll(direction) {
+        function scrollToNext() {
+            const cardWidth = getCardWidth();
             gallery.scrollBy({
-                left: direction * cardWidth,
+                left: cardWidth,
                 behavior: 'smooth'
             });
         }
 
-        // Touch Swipe Handling
+        function scrollToPrevious() {
+            const cardWidth = getCardWidth();
+            gallery.scrollBy({
+                left: -cardWidth,
+                behavior: 'smooth'
+            });
+        }
+
+        // Handle natural scroll to update position
+        gallery.addEventListener('scroll', () => {
+            currentScroll = gallery.scrollLeft;
+        });
+
+        // Basic touch handling
         let touchStartX = 0;
         
         gallery.addEventListener('touchstart', e => {
@@ -271,7 +377,7 @@
             const diff = touchStartX - touchEndX;
             
             if (Math.abs(diff) > 50) {
-                diff > 0 ? scroll(1) : scroll(-1);
+                diff > 0 ? scrollToNext() : scrollToPrevious();
             }
         });
     </script>
