@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🌈 Crafty Cuties - Modern Craft Store</title>
+    <title>🌈 Crafty Cuties - Mobile-Friendly Craft Store</title>
     <script async src="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.js"></script>
     <div hidden id="snipcart" data-api-key="YOUR_SNIPCART_API_KEY"></div>
     <style>
@@ -18,119 +18,147 @@
         body {
             background: #fff5f9;
             color: #2d2d2d;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-        }
-
-        /* Modern Header */
-        .header {
-            padding: 1.5rem 2rem;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #ff6b8d;
-            letter-spacing: -0.5px;
-        }
-
-        /* Modern Cart Button */
-        .cart-button {
-            background: linear-gradient(135deg, #ff6b8d 0%, #ff8e53 100%);
-            color: white !important;
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
-            border: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .cart-button:hover {
-            transform: scale(1.05);
-        }
-
-        /* Swipeable Product Gallery */
-        .gallery-container {
-            height: 100vh;
-            padding: 8rem 2rem 2rem;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .product-card {
-            flex: 0 0 80vw;
-            height: 70vh;
-            background: white;
-            border-radius: 24px;
-            padding: 2rem;
-            scroll-snap-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        .product-card:hover {
-            transform: translateY(-5px);
+        /* Modern Header */
+        .header {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff6b8d;
+        }
+
+        /* Modern Cart Button */
+        .cart-button {
+            background: #ff6b8d;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Swipeable Product Gallery */
+        .gallery-container {
+            flex: 1;
+            padding: 1rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            display: flex;
+            gap: 1rem;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .product-card {
+            flex: 0 0 85vw;
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            scroll-snap-align: start;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
         }
 
         .product-image {
-            flex: 1;
+            width: 100%;
+            height: 200px;
             object-fit: contain;
-            border-radius: 16px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .product-details {
             text-align: center;
+            margin-top: auto;
         }
 
         .product-title {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             margin-bottom: 0.5rem;
-            color: #2d2d2d;
         }
 
         .product-price {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             color: #ff6b8d;
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        /* Modern Add to Cart Button */
-        .add-to-cart {
-            background: linear-gradient(135deg, #6b8dff 0%, #53ff8e 100%);
+        /* About Section */
+        .about-section {
+            padding: 2rem 1rem;
+            background: white;
+            margin-top: auto;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .creator-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff6b8d;
+        }
+
+        .about-text {
+            text-align: center;
+        }
+
+        /* Footer */
+        .footer {
+            background: #ff6b8d;
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            border: none;
-            font-weight: 600;
-            width: 100%;
-            cursor: pointer;
-            transition: transform 0.2s ease;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: auto;
         }
 
-        .add-to-cart:hover {
-            transform: scale(1.03);
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .gallery-container {
+                padding: 2rem;
+                gap: 2rem;
+            }
+
+            .product-card {
+                flex: 0 0 400px;
+            }
+
+            .about-content {
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .creator-avatar {
+                width: 160px;
+                height: 160px;
+            }
         }
 
         /* Hide scrollbar */
@@ -147,14 +175,14 @@
         </button>
     </header>
 
-    <main class="gallery-container" id="gallery">
+    <main class="gallery-container">
         <!-- Product 1 -->
         <article class="product-card">
             <img src="images/product-1.jpg" alt="Unicorn Keychain" class="product-image">
             <div class="product-details">
                 <h2 class="product-title">Magical Unicorn Keychain</h2>
                 <p class="product-price">$14.99</p>
-                <button class="add-to-cart snipcart-add-item"
+                <button class="cart-button snipcart-add-item"
                     data-item-id="1"
                     data-item-price="14.99"
                     data-item-name="Magical Unicorn Keychain"
@@ -170,7 +198,7 @@
             <div class="product-details">
                 <h2 class="product-title">Rainbow Friendship Bracelet</h2>
                 <p class="product-price">$12.99</p>
-                <button class="add-to-cart snipcart-add-item"
+                <button class="cart-button snipcart-add-item"
                     data-item-id="2"
                     data-item-price="12.99"
                     data-item-name="Rainbow Friendship Bracelet"
@@ -186,7 +214,7 @@
             <div class="product-details">
                 <h2 class="product-title">Kawaii Strawberry Earrings</h2>
                 <p class="product-price">$16.99</p>
-                <button class="add-to-cart snipcart-add-item"
+                <button class="cart-button snipcart-add-item"
                     data-item-id="3"
                     data-item-price="16.99"
                     data-item-name="Kawaii Strawberry Earrings"
@@ -197,9 +225,26 @@
         </article>
     </main>
 
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-content">
+            <img src="images/creator-avatar.jpg" alt="Creator" class="creator-avatar">
+            <div class="about-text">
+                <h2>About the Creator</h2>
+                <p>Hi! I'm Emma, a 14-year-old artist passionate about creating cute, handmade accessories. Every piece is made with love and attention to detail! 💖</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>📧 crafty@example.com • © 2024 Crafty Cuties</p>
+        <p>Handmade with love in California</p>
+    </footer>
+
     <script>
         // Enable horizontal swipe navigation
-        const gallery = document.getElementById('gallery');
+        const gallery = document.querySelector('.gallery-container');
         let isDown = false;
         let startX;
         let scrollLeft;
@@ -208,14 +253,17 @@
             isDown = true;
             startX = e.pageX - gallery.offsetLeft;
             scrollLeft = gallery.scrollLeft;
+            gallery.style.cursor = 'grabbing';
         });
 
         gallery.addEventListener('mouseleave', () => {
             isDown = false;
+            gallery.style.cursor = 'grab';
         });
 
         gallery.addEventListener('mouseup', () => {
             isDown = false;
+            gallery.style.cursor = 'grab';
         });
 
         gallery.addEventListener('mousemove', (e) => {
