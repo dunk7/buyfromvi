@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🌈 Crafty Cuties - Mobile-Friendly Craft Store</title>
+    <title>buyfromvi.com - Violette's Vintage Treasures</title>
     <script async src="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.js"></script>
     <div hidden id="snipcart" data-api-key="YOUR_SNIPCART_API_KEY"></div>
     <style>
@@ -12,77 +12,97 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Comic Neue', cursive;
         }
 
         body {
-            background: #fff5f9;
+            background: #fff9fb;
             color: #2d2d2d;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
         /* Modern Header */
         .header {
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.98);
             position: sticky;
             top: 0;
             z-index: 100;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-bottom: 3px solid #ffb3d9;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: #ff6b8d;
-        }
-
-        /* Modern Cart Button */
-        .cart-button {
-            background: #ff6b8d;
-            color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            border: none;
+            color: #ff66b2;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.9rem;
         }
 
-        /* Swipeable Product Gallery */
+        .logo::before {
+            content: "🌸";
+            font-size: 1.2em;
+        }
+
+        /* Perfect Cart Button */
+        .cart-button {
+            background: #ff66b2;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 1rem;
+            transition: transform 0.2s ease;
+            box-shadow: 0 3px 8px rgba(255,102,178,0.3);
+        }
+
+        .cart-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Smooth Product Gallery */
         .gallery-container {
             flex: 1;
-            padding: 1rem;
+            padding: 2rem 1rem;
+            display: grid;
+            grid-auto-flow: column;
+            gap: 2rem;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            display: flex;
-            gap: 1rem;
             -webkit-overflow-scrolling: touch;
+            scroll-padding: 0 1rem;
         }
 
         .product-card {
-            flex: 0 0 85vw;
+            width: 85vw;
+            max-width: 400px;
             background: white;
             border-radius: 20px;
             padding: 1.5rem;
-            scroll-snap-align: start;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            scroll-snap-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
-            margin-bottom: 1rem;
+            margin: 0 1rem;
         }
 
         .product-image {
             width: 100%;
-            height: 200px;
+            height: 250px;
             object-fit: contain;
             margin-bottom: 1rem;
+            border-radius: 15px;
         }
 
         .product-details {
@@ -91,85 +111,108 @@
         }
 
         .product-title {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            color: #2d2d2d;
             margin-bottom: 0.5rem;
         }
 
         .product-price {
-            font-size: 1.4rem;
-            color: #ff6b8d;
+            font-size: 1.6rem;
+            color: #ff66b2;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         /* About Section */
         .about-section {
-            padding: 2rem 1rem;
-            background: white;
-            margin-top: auto;
+            background: linear-gradient(135deg, #fff0f7, #ffffff);
+            padding: 3rem 1rem;
+            margin-top: 3rem;
         }
 
         .about-content {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
         .creator-avatar {
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #ff6b8d;
+            border: 4px solid #ff66b2;
+            box-shadow: 0 8px 16px rgba(255,102,178,0.2);
         }
 
         .about-text {
             text-align: center;
+            max-width: 600px;
+        }
+
+        .about-text h2 {
+            color: #ff66b2;
+            font-size: 2rem;
+            margin-bottom: 1rem;
         }
 
         /* Footer */
         .footer {
-            background: #ff6b8d;
+            background: #ff66b2;
             color: white;
-            padding: 1.5rem;
+            padding: 2rem 1rem;
             text-align: center;
             margin-top: auto;
+        }
+
+        .footer p {
+            margin: 0.3rem 0;
         }
 
         /* Responsive Design */
         @media (min-width: 768px) {
             .gallery-container {
                 padding: 2rem;
-                gap: 2rem;
             }
 
             .product-card {
-                flex: 0 0 400px;
+                width: 400px;
             }
 
             .about-content {
                 flex-direction: row;
                 text-align: left;
+                gap: 3rem;
             }
 
-            .creator-avatar {
-                width: 160px;
-                height: 160px;
+            .about-text {
+                text-align: left;
             }
         }
 
-        /* Hide scrollbar */
+        /* Scrollbar Styling */
         ::-webkit-scrollbar {
-            display: none;
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fff0f7;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ffb3d9;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
     <header class="header">
-        <div class="logo">Crafty Cuties</div>
+        <div class="logo">buyfromvi.com</div>
         <button class="cart-button snipcart-checkout">
             🛒 Cart <span class="snipcart-items-count">0</span>
         </button>
@@ -178,48 +221,48 @@
     <main class="gallery-container">
         <!-- Product 1 -->
         <article class="product-card">
-            <img src="images/product-1.jpg" alt="Unicorn Keychain" class="product-image">
+            <img src="images/teddy.jpg" alt="Gentle Teddy Bear" class="product-image">
             <div class="product-details">
-                <h2 class="product-title">Magical Unicorn Keychain</h2>
-                <p class="product-price">$14.99</p>
+                <h2 class="product-title">Gentle Teddy Bear</h2>
+                <p class="product-price">$8.99</p>
                 <button class="cart-button snipcart-add-item"
                     data-item-id="1"
-                    data-item-price="14.99"
-                    data-item-name="Magical Unicorn Keychain"
-                    data-item-image="images/product-1.jpg">
-                    Add to Cart ✨
+                    data-item-price="8.99"
+                    data-item-name="Gentle Teddy Bear"
+                    data-item-image="images/teddy.jpg">
+                    Add to Cart 🧸
                 </button>
             </div>
         </article>
 
         <!-- Product 2 -->
         <article class="product-card">
-            <img src="images/product-2.jpg" alt="Rainbow Bracelet" class="product-image">
+            <img src="images/dollhouse.jpg" alt="Miniature Dollhouse" class="product-image">
             <div class="product-details">
-                <h2 class="product-title">Rainbow Friendship Bracelet</h2>
-                <p class="product-price">$12.99</p>
+                <h2 class="product-title">Miniature Dollhouse</h2>
+                <p class="product-price">$14.99</p>
                 <button class="cart-button snipcart-add-item"
                     data-item-id="2"
-                    data-item-price="12.99"
-                    data-item-name="Rainbow Friendship Bracelet"
-                    data-item-image="images/product-2.jpg">
-                    Add to Cart 🌈
+                    data-item-price="14.99"
+                    data-item-name="Miniature Dollhouse"
+                    data-item-image="images/dollhouse.jpg">
+                    Add to Cart 🏠
                 </button>
             </div>
         </article>
 
         <!-- Product 3 -->
         <article class="product-card">
-            <img src="images/product-3.jpg" alt="Kawaii Earrings" class="product-image">
+            <img src="images/puzzle.jpg" alt="Rainbow Puzzle" class="product-image">
             <div class="product-details">
-                <h2 class="product-title">Kawaii Strawberry Earrings</h2>
-                <p class="product-price">$16.99</p>
+                <h2 class="product-title">Rainbow Puzzle</h2>
+                <p class="product-price">$6.99</p>
                 <button class="cart-button snipcart-add-item"
                     data-item-id="3"
-                    data-item-price="16.99"
-                    data-item-name="Kawaii Strawberry Earrings"
-                    data-item-image="images/product-3.jpg">
-                    Add to Cart 🍓
+                    data-item-price="6.99"
+                    data-item-name="Rainbow Puzzle"
+                    data-item-image="images/puzzle.jpg">
+                    Add to Cart 🌈
                 </button>
             </div>
         </article>
@@ -228,70 +271,62 @@
     <!-- About Section -->
     <section class="about-section">
         <div class="about-content">
-            <img src="images/creator-avatar.jpg" alt="Creator" class="creator-avatar">
+            <img src="images/violette.jpg" alt="Violette" class="creator-avatar">
             <div class="about-text">
-                <h2>About the Creator</h2>
-                <p>Hi! I'm Emma, a 14-year-old artist passionate about creating cute, handmade accessories. Every piece is made with love and attention to detail! 💖</p>
+                <h2>Meet Violette 🌸</h2>
+                <p>Hi! I'm Violette, a 10-year-old entrepreneur from Mercer Island! What started as a lemonade-style toy stand at Luther Burbank Park has grown into my very own online store. Every toy is gently loved and ready for new adventures!</p>
+                <p style="margin-top: 1rem;">"I wash and fix every toy myself - mom helps with the website!"</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>📧 crafty@example.com • © 2024 Crafty Cuties</p>
-        <p>Handmade with love in California</p>
+        <p>📍 Mercer Island, WA • 🧸 Since 2023</p>
+        <p>📧 contact@buyfromvi.com • 👧🏼 Managed by Violette (with mom's help)</p>
+        <p>© 2024 buyfromvi.com - Where pre-loved toys find new homes!</p>
     </footer>
 
     <script>
-        // Enable horizontal swipe navigation
+        // Smooth horizontal scrolling
         const gallery = document.querySelector('.gallery-container');
-        let isDown = false;
+        let isDragging = false;
         let startX;
         let scrollLeft;
 
-        gallery.addEventListener('mousedown', (e) => {
-            isDown = true;
-            startX = e.pageX - gallery.offsetLeft;
+        const startDragging = (e) => {
+            isDragging = true;
+            startX = (e.pageX || e.touches[0].pageX) - gallery.offsetLeft;
             scrollLeft = gallery.scrollLeft;
             gallery.style.cursor = 'grabbing';
-        });
+        };
 
-        gallery.addEventListener('mouseleave', () => {
-            isDown = false;
+        const stopDragging = () => {
+            isDragging = false;
             gallery.style.cursor = 'grab';
-        });
+        };
 
-        gallery.addEventListener('mouseup', () => {
-            isDown = false;
-            gallery.style.cursor = 'grab';
-        });
-
-        gallery.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
+        const moveGallery = (e) => {
+            if (!isDragging) return;
             e.preventDefault();
-            const x = e.pageX - gallery.offsetLeft;
-            const walk = (x - startX) * 2;
+            const x = (e.pageX || e.touches[0].pageX) - gallery.offsetLeft;
+            const walk = (x - startX) * 1.5;
             gallery.scrollLeft = scrollLeft - walk;
-        });
+        };
 
-        // Mobile touch support
-        gallery.addEventListener('touchstart', (e) => {
-            isDown = true;
-            startX = e.touches[0].pageX - gallery.offsetLeft;
-            scrollLeft = gallery.scrollLeft;
-        });
+        // Mouse events
+        gallery.addEventListener('mousedown', startDragging);
+        gallery.addEventListener('mouseup', stopDragging);
+        gallery.addEventListener('mouseleave', stopDragging);
+        gallery.addEventListener('mousemove', moveGallery);
 
-        gallery.addEventListener('touchend', () => {
-            isDown = false;
-        });
+        // Touch events
+        gallery.addEventListener('touchstart', startDragging);
+        gallery.addEventListener('touchend', stopDragging);
+        gallery.addEventListener('touchmove', moveGallery);
 
-        gallery.addEventListener('touchmove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.touches[0].pageX - gallery.offsetLeft;
-            const walk = (x - startX) * 2;
-            gallery.scrollLeft = scrollLeft - walk;
-        });
+        // Initialize cursor
+        gallery.style.cursor = 'grab';
     </script>
 </body>
 </html>
