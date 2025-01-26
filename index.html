@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎀 Cute Craft Corner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- Snipcart -->
+  <script async src="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.js"></script>
+  <div hidden id="snipcart" data-api-key="YOUR_KEY"></div>
+</head>
+<body>
+  <header class="header">
+    <h1>🌸 Crafty Cuties</h1>
+    <div class="cart-button" onclick="Snipcart.api.theme.cart.open()">
+      🛒 Cart <span class="snipcart-items-count">0</span>
+    </div>
+  </header>
+
+  <div class="products-grid" id="products-container">
+    <!-- Products injected via JS -->
+  </div>
+
+  <script src="products.js"></script>
+</body>
+</html>
