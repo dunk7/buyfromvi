@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>buyfromvi.com - Violette's Vintage Treasures</title>
+    <title>buyfromvi.com - Violette's Pre-Loved Treasures</title>
     <script async src="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.js"></script>
     <div hidden id="snipcart" data-api-key="YOUR_SNIPCART_API_KEY"></div>
     <style>
@@ -24,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* Modern Header */
+        /* Header */
         .header {
             padding: 1rem 2rem;
             background: rgba(255, 255, 255, 0.98);
@@ -52,7 +52,7 @@
             font-size: 1.2em;
         }
 
-        /* Perfect Cart Button */
+        /* Cart Button */
         .cart-button {
             background: #ff66b2;
             color: white;
@@ -71,7 +71,7 @@
             transform: scale(1.05);
         }
 
-        /* Smooth Product Gallery */
+        /* Product Gallery */
         .gallery-container {
             flex: 1;
             padding: 2rem 1rem;
@@ -81,7 +81,7 @@
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
-            scroll-padding: 0 1rem;
+            scroll-behavior: smooth;
         }
 
         .product-card {
@@ -95,6 +95,7 @@
             display: flex;
             flex-direction: column;
             margin: 0 1rem;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .product-image {
@@ -172,6 +173,27 @@
             margin: 0.3rem 0;
         }
 
+        /* Snipcart Overrides */
+        .snipcart-modal__container {
+            border-radius: 20px !important;
+            overscroll-behavior: contain !important;
+        }
+
+        .snipcart-modal__close-icon {
+            color: #ff66b2 !important;
+            font-size: 2rem !important;
+            padding: 15px !important;
+            transition: transform 0.2s ease !important;
+        }
+
+        .snipcart-modal__close-icon:hover {
+            transform: scale(1.2) !important;
+        }
+
+        .snipcart-loader__spinner {
+            display: none !important;
+        }
+
         /* Responsive Design */
         @media (min-width: 768px) {
             .gallery-container {
@@ -221,7 +243,7 @@
     <main class="gallery-container">
         <!-- Product 1 -->
         <article class="product-card">
-            <img src="images/teddy.jpg" alt="Gentle Teddy Bear" class="product-image">
+            <img src="images/product-1.jpg" alt="Gentle Teddy Bear" class="product-image">
             <div class="product-details">
                 <h2 class="product-title">Gentle Teddy Bear</h2>
                 <p class="product-price">$8.99</p>
@@ -229,7 +251,7 @@
                     data-item-id="1"
                     data-item-price="8.99"
                     data-item-name="Gentle Teddy Bear"
-                    data-item-image="images/teddy.jpg">
+                    data-item-image="images/product-1.jpg">
                     Add to Cart 🧸
                 </button>
             </div>
@@ -237,7 +259,7 @@
 
         <!-- Product 2 -->
         <article class="product-card">
-            <img src="images/dollhouse.jpg" alt="Miniature Dollhouse" class="product-image">
+            <img src="images/product-2.jpg" alt="Miniature Dollhouse" class="product-image">
             <div class="product-details">
                 <h2 class="product-title">Miniature Dollhouse</h2>
                 <p class="product-price">$14.99</p>
@@ -245,7 +267,7 @@
                     data-item-id="2"
                     data-item-price="14.99"
                     data-item-name="Miniature Dollhouse"
-                    data-item-image="images/dollhouse.jpg">
+                    data-item-image="images/product-2.jpg">
                     Add to Cart 🏠
                 </button>
             </div>
@@ -253,7 +275,7 @@
 
         <!-- Product 3 -->
         <article class="product-card">
-            <img src="images/puzzle.jpg" alt="Rainbow Puzzle" class="product-image">
+            <img src="images/product-3.jpg" alt="Rainbow Puzzle" class="product-image">
             <div class="product-details">
                 <h2 class="product-title">Rainbow Puzzle</h2>
                 <p class="product-price">$6.99</p>
@@ -261,7 +283,7 @@
                     data-item-id="3"
                     data-item-price="6.99"
                     data-item-name="Rainbow Puzzle"
-                    data-item-image="images/puzzle.jpg">
+                    data-item-image="images/product-3.jpg">
                     Add to Cart 🌈
                 </button>
             </div>
@@ -271,7 +293,7 @@
     <!-- About Section -->
     <section class="about-section">
         <div class="about-content">
-            <img src="images/violette.jpg" alt="Violette" class="creator-avatar">
+            <img src="images/violet.jpg" alt="Violette" class="creator-avatar">
             <div class="about-text">
                 <h2>Meet Violette 🌸</h2>
                 <p>Hi! I'm Violette, a 10-year-old entrepreneur from Mercer Island! What started as a lemonade-style toy stand at Luther Burbank Park has grown into my very own online store. Every toy is gently loved and ready for new adventures!</p>
@@ -288,45 +310,61 @@
     </footer>
 
     <script>
-        // Smooth horizontal scrolling
+        // Enhanced Swipe Logic
         const gallery = document.querySelector('.gallery-container');
         let isDragging = false;
         let startX;
         let scrollLeft;
+        let momentumID;
+        let velocity = 0;
+        const decay = 0.95;
 
-        const startDragging = (e) => {
+        const startDrag = (e) => {
             isDragging = true;
             startX = (e.pageX || e.touches[0].pageX) - gallery.offsetLeft;
             scrollLeft = gallery.scrollLeft;
             gallery.style.cursor = 'grabbing';
+            cancelAnimationFrame(momentumID);
         };
 
-        const stopDragging = () => {
+        const dragMove = (e) => {
+            if (!isDragging) return;
+            const x = (e.pageX || e.touches[0].pageX) - gallery.offsetLeft;
+            const dragDistance = (x - startX);
+            velocity = dragDistance * 0.3;
+            gallery.scrollLeft = scrollLeft - dragDistance;
+        };
+
+        const endDrag = () => {
             isDragging = false;
             gallery.style.cursor = 'grab';
+            
+            const applyMomentum = () => {
+                if (Math.abs(velocity) > 0.5) {
+                    gallery.scrollLeft += velocity;
+                    velocity *= decay;
+                    momentumID = requestAnimationFrame(applyMomentum);
+                }
+            };
+            applyMomentum();
         };
 
-        const moveGallery = (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = (e.pageX || e.touches[0].pageX) - gallery.offsetLeft;
-            const walk = (x - startX) * 1.5;
-            gallery.scrollLeft = scrollLeft - walk;
-        };
+        // Event Listeners
+        gallery.addEventListener('mousedown', startDrag);
+        gallery.addEventListener('mousemove', dragMove);
+        gallery.addEventListener('mouseup', endDrag);
+        gallery.addEventListener('mouseleave', endDrag);
 
-        // Mouse events
-        gallery.addEventListener('mousedown', startDragging);
-        gallery.addEventListener('mouseup', stopDragging);
-        gallery.addEventListener('mouseleave', stopDragging);
-        gallery.addEventListener('mousemove', moveGallery);
+        gallery.addEventListener('touchstart', startDrag);
+        gallery.addEventListener('touchmove', dragMove);
+        gallery.addEventListener('touchend', endDrag);
 
-        // Touch events
-        gallery.addEventListener('touchstart', startDragging);
-        gallery.addEventListener('touchend', stopDragging);
-        gallery.addEventListener('touchmove', moveGallery);
-
-        // Initialize cursor
-        gallery.style.cursor = 'grab';
+        // Fix scroll lock issue
+        document.addEventListener('snipcart.ready', () => {
+            Snipcart.events.on('cart.closed', () => {
+                document.body.style.overflow = 'auto';
+            });
+        });
     </script>
 </body>
 </html>
