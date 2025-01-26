@@ -86,10 +86,9 @@
             grid-auto-flow: column;
             gap: 2rem;
             overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
             scroll-behavior: smooth;
             scroll-padding: 0 1.5rem;
+            position: relative;
         }
 
         .gallery-container::-webkit-scrollbar {
@@ -108,12 +107,12 @@
             background: white;
             border-radius: 20px;
             padding: 1.5rem;
-            scroll-snap-align: center;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
             margin: 0 1rem;
             flex-shrink: 0;
+            scroll-snap-align: center;
         }
 
         .product-image {
@@ -179,7 +178,34 @@
             font-size: 0.9rem;
         }
 
-        /* Snipcart Mobile Optimizations */
+        /* Scroll Arrows */
+        .scroll-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ff66b2;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255,102,178,0.3);
+            z-index: 50;
+            border: none;
+        }
+
+        .scroll-left {
+            left: 1rem;
+        }
+
+        .scroll-right {
+            right: 1rem;
+        }
+
+        /* Cart Improvements */
         .snipcart-item-line__image {
             width: 60px !important;
             height: 60px !important;
@@ -198,8 +224,37 @@
         }
 
         .snipcart-item-quantity__quantity {
-            min-width: 40px !important;
-            padding: 0.3rem !important;
+            min-width: 50px !important;
+            padding: 0.5rem !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .snipcart-item-quantity__button {
+            width: 40px !important;
+            height: 40px !important;
+            border-radius: 50% !important;
+            background: #ff66b2 !important;
+            position: relative !important;
+        }
+
+        .snipcart-item-quantity__button::before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border: 2px solid white;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .snipcart-item-quantity__button.snipcart-item-quantity__button--increment::before {
+            transform: rotate(45deg) translate(-1px, -2px);
+        }
+
+        .snipcart-item-quantity__button.snipcart-item-quantity__button--decrement::before {
+            transform: rotate(-135deg) translate(-1px, -2px);
         }
 
         @media (max-width: 480px) {
@@ -212,39 +267,6 @@
                 margin-top: 0.5rem !important;
             }
         }
-
-        /* Scroll Arrows */
-        .scroll-arrow {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #ff66b2;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(255,102,178,0.3);
-            z-index: 50;
-            display: none;
-        }
-
-        .scroll-left {
-            left: 1rem;
-        }
-
-        .scroll-right {
-            right: 1rem;
-        }
-
-        @media (hover: hover) {
-            .scroll-arrow {
-                display: flex;
-            }
-        }
     </style>
 </head>
 <body>
@@ -255,10 +277,10 @@
         </button>
     </header>
 
-    <div class="scroll-arrow scroll-left" onclick="scrollGallery(-1)">←</div>
-    <div class="scroll-arrow scroll-right" onclick="scrollGallery(1)">→</div>
-
     <main class="gallery-container" id="gallery">
+        <button class="scroll-arrow scroll-left" onclick="scrollGallery(-1)">←</button>
+        <button class="scroll-arrow scroll-right" onclick="scrollGallery(1)">→</button>
+
         <article class="product-card">
             <img src="images/product-1.jpg" alt="Gentle Teddy Bear" class="product-image">
             <div class="product-details">
@@ -323,55 +345,75 @@
     </footer>
 
     <script>
-        // Smooth scroll behavior
+        // Enhanced smooth scrolling with proper snap points
         const gallery = document.getElementById('gallery');
-        let isScrolling = false;
+        let isAnimating = false;
+        let currentIndex = 0;
+
+        function getCardWidth() {
+            return gallery.firstElementChild.offsetWidth + 32; // card + gap
+        }
 
         function scrollGallery(direction) {
-            const cardWidth = gallery.firstElementChild.offsetWidth + 32; // card + gap
-            gallery.scrollBy({
-                left: direction * cardWidth,
+            if (isAnimating) return;
+            
+            currentIndex = Math.max(0, Math.min(currentIndex + direction, gallery.children.length - 1));
+            const scrollPosition = currentIndex * getCardWidth();
+            
+            isAnimating = true;
+            gallery.scrollTo({
+                left: scrollPosition,
                 behavior: 'smooth'
             });
+
+            setTimeout(() => {
+                isAnimating = false;
+                checkScrollPosition();
+            }, 500);
         }
 
-        // Hide scroll arrows when at edges
-        function checkScrollPosition() {
-            const arrows = document.querySelectorAll('.scroll-arrow');
-            arrows[0].style.display = gallery.scrollLeft > 50 ? 'flex' : 'none';
-            arrows[1].style.display = gallery.scrollLeft + gallery.offsetWidth < gallery.scrollWidth - 50 ? 'flex' : 'none';
-        }
+        // Handle touch swipe with momentum
+        let touchStartX = 0;
+        let touchStartScroll = 0;
+        let velocity = 0;
+        let lastTime = 0;
 
-        // Throttled scroll handler
-        gallery.addEventListener('scroll', () => {
-            if (!isScrolling) {
-                window.requestAnimationFrame(() => {
-                    checkScrollPosition();
-                    isScrolling = false;
-                });
-                isScrolling = true;
+        gallery.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+            touchStartScroll = gallery.scrollLeft;
+            velocity = 0;
+            lastTime = Date.now();
+        });
+
+        gallery.addEventListener('touchmove', e => {
+            const deltaX = e.touches[0].clientX - touchStartX;
+            gallery.scrollLeft = touchStartScroll - deltaX;
+            
+            const now = Date.now();
+            const timeDiff = now - lastTime;
+            if (timeDiff > 0) {
+                velocity = (gallery.scrollLeft - touchStartScroll) / timeDiff;
+                lastTime = now;
             }
         });
+
+        gallery.addEventListener('touchend', () => {
+            const momentum = velocity * 100;
+            const targetScroll = gallery.scrollLeft + momentum;
+            currentIndex = Math.round(targetScroll / getCardWidth());
+            
+            scrollGallery(0); // Snap to nearest card
+        });
+
+        // Update arrow positions
+        function checkScrollPosition() {
+            const arrows = document.querySelectorAll('.scroll-arrow');
+            arrows[0].style.display = currentIndex > 0 ? 'flex' : 'none';
+            arrows[1].style.display = currentIndex < gallery.children.length - 3 ? 'flex' : 'none';
+        }
 
         // Initial check
         checkScrollPosition();
-
-        // Mobile touch improvements
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        gallery.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        gallery.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
-            
-            if (Math.abs(diff) > 50) {
-                scrollGallery(diff > 0 ? -1 : 1);
-            }
-        });
     </script>
 </body>
 </html>
