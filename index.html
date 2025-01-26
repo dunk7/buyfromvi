@@ -52,7 +52,7 @@
             font-size: 1.2em;
         }
 
-        /* Enhanced Cart Button */
+        /* Cart Button */
         .cart-button {
             background: #ff66b2;
             color: white;
@@ -65,18 +65,18 @@
             font-size: 1rem;
             transition: all 0.2s ease;
             box-shadow: 0 3px 8px rgba(255,102,178,0.3);
-            white-space: nowrap;
             position: relative;
         }
 
         .cart-button::after {
-            content: "";
+            content: attr(data-count);
             position: absolute;
-            top: -5px;
-            right: -5px;
-            width: 20px;
-            height: 20px;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
             background: #ff3366;
+            color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -86,24 +86,15 @@
             transition: transform 0.2s ease;
         }
 
-        .cart-button.snipcart-items-count::after {
-            content: attr(data-count);
+        .cart-button[data-count]:not([data-count="0"])::after {
             --scale: 1;
         }
 
-        @media (max-width: 480px) {
-            .cart-button {
-                padding: 0.7rem;
-            }
-            .cart-button span:first-child {
-                display: none;
-            }
-        }
-
-        /* Improved Product Gallery */
+        /* Product Gallery */
         .gallery-wrapper {
             position: relative;
             margin: 2rem 0;
+            padding: 0 1rem;
         }
 
         .gallery-container {
@@ -112,8 +103,8 @@
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
-            padding: 0 1rem;
             gap: 2rem;
+            padding-bottom: 1rem;
             scrollbar-width: none;
         }
 
@@ -122,19 +113,14 @@
         }
 
         .product-card {
-            flex: 0 0 calc(100vw - 2rem);
+            flex: 0 0 calc(100vw - 4rem);
             max-width: 350px;
             background: white;
             border-radius: 20px;
             padding: 1.5rem;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
             scroll-snap-align: center;
-            margin: 0 1rem;
             transition: transform 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
         }
 
         .product-image {
@@ -143,6 +129,21 @@
             object-fit: contain;
             margin-bottom: 1rem;
             border-radius: 15px;
+        }
+
+        .product-details {
+            text-align: center;
+        }
+
+        .snipcart-add-item {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border-radius: 15px !important;
+            margin-top: 1rem;
+            background: #ff66b2 !important;
+            color: white !important;
+            border: none !important;
         }
 
         /* Navigation Arrows */
@@ -172,10 +173,45 @@
         .nav-arrow--left { left: 1rem; }
         .nav-arrow--right { right: 1rem; }
 
-        /* Enhanced Cart Overrides */
+        /* About Section */
+        .about-section {
+            background: linear-gradient(135deg, #fff0f7, #ffffff);
+            padding: 3rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .about-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .creator-avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ff66b2;
+            box-shadow: 0 8px 16px rgba(255,102,178,0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: #ff66b2;
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: auto;
+            font-size: 0.9rem;
+            border-radius: 20px 20px 0 0;
+        }
+
+        /* Cart Overrides */
         .snipcart-modal__container {
             border-radius: 20px !important;
-            max-width: 95% !important;
             font-family: 'Comic Neue' !important;
         }
 
@@ -195,42 +231,135 @@
             color: #2d2d2d !important;
         }
 
-        .snipcart-item-quantity__quantity {
-            border: 2px solid #ffb3d9 !important;
-            border-radius: 12px !important;
-            padding: 0.5rem 1rem !important;
-        }
-
         .snipcart-button-primary {
             background: #ff66b2 !important;
             border-radius: 15px !important;
             padding: 1rem 2rem !important;
-            font-size: 1.1rem !important;
             transition: transform 0.2s ease !important;
         }
 
-        .snipcart-button-primary:active {
-            transform: scale(0.98) !important;
+        @media (max-width: 480px) {
+            .product-card {
+                flex: 0 0 calc(100vw - 2rem);
+            }
+            
+            .cart-button {
+                padding: 0.7rem;
+            }
         }
-
-        .snipcart-summary__button {
-            color: #ff66b2 !important;
-        }
-
-        .snipcart__font--secondary {
-            color: #ff66b2 !important;
-        }
-
-        /* About Section and Footer styles remain the same */
-
     </style>
 </head>
 <body>
-    <!-- Header and Content same as before -->
+    <header class="header">
+        <div class="logo">buyfromvi.com</div>
+        <button class="cart-button snipcart-checkout" data-count="0">
+            🛒 <span class="snipcart-items-count"></span>
+        </button>
+    </header>
+
+    <div class="gallery-wrapper">
+        <button class="nav-arrow nav-arrow--left" onclick="scrollToPrevious()">←</button>
+        <button class="nav-arrow nav-arrow--right" onclick="scrollToNext()">→</button>
+        
+        <div class="gallery-container" id="gallery">
+            <article class="product-card">
+                <img src="images/product-1.jpg" alt="Gentle Teddy Bear" class="product-image">
+                <div class="product-details">
+                    <h2>Gentle Teddy Bear</h2>
+                    <p>$8.99</p>
+                    <button class="snipcart-add-item"
+                        data-item-id="1"
+                        data-item-price="8.99"
+                        data-item-name="Gentle Teddy Bear"
+                        data-item-image="images/product-1.jpg">
+                        Add to Cart 🧸
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <img src="images/product-2.jpg" alt="Miniature Dollhouse" class="product-image">
+                <div class="product-details">
+                    <h2>Miniature Dollhouse</h2>
+                    <p>$14.99</p>
+                    <button class="snipcart-add-item"
+                        data-item-id="2"
+                        data-item-price="14.99"
+                        data-item-name="Miniature Dollhouse"
+                        data-item-image="images/product-2.jpg">
+                        Add to Cart 🏠
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <img src="images/product-3.jpg" alt="Rainbow Puzzle" class="product-image">
+                <div class="product-details">
+                    <h2>Rainbow Puzzle</h2>
+                    <p>$6.99</p>
+                    <button class="snipcart-add-item"
+                        data-item-id="3"
+                        data-item-price="6.99"
+                        data-item-name="Rainbow Puzzle"
+                        data-item-image="images/product-3.jpg">
+                        Add to Cart 🌈
+                    </button>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <section class="about-section">
+        <div class="about-content">
+            <img src="images/violet.jpg" alt="Violette" class="creator-avatar">
+            <div class="about-text">
+                <h2>Meet Violette 🌸</h2>
+                <p>Hi! I'm Violette, a 10-year-old entrepreneur from Mercer Island! What started as a lemonade-style toy stand has grown into my online store. Every toy is gently loved and ready for new adventures!</p>
+                <p>"I wash and fix every toy myself - with help from my big brother!"</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>📍 Mercer Island, WA • 🧸 Since 2023</p>
+        <p>📧 contact@buyfromvi.com • 👧🏼 Managed by Violette</p>
+        <p>© 2024 buyfromvi.com - Pre-loved toys find new homes!</p>
+    </footer>
 
     <script>
-        // Improved Swipe Handling
+        // Smooth Scroll Handling
         const gallery = document.getElementById('gallery');
+        const cards = Array.from(gallery.children);
+        let currentIndex = 0;
+        let isScrolling = false;
+
+        function getCardWidth() {
+            return cards[0].offsetWidth + 32;
+        }
+
+        function scrollToIndex(index) {
+            if (isScrolling || index < 0 || index >= cards.length) return;
+            
+            currentIndex = index;
+            isScrolling = true;
+            
+            gallery.scrollTo({
+                left: currentIndex * getCardWidth(),
+                behavior: 'smooth'
+            });
+
+            setTimeout(() => isScrolling = false, 500);
+        }
+
+        function scrollToNext() {
+            scrollToIndex(Math.min(currentIndex + 1, cards.length - 1));
+        }
+
+        function scrollToPrevious() {
+            scrollToIndex(Math.max(currentIndex - 1, 0));
+        }
+
+        // Touch Handling
         let touchStartX = 0;
         let touchMoveX = 0;
         const swipeThreshold = 50;
@@ -244,52 +373,24 @@
         }, { passive: true });
 
         gallery.addEventListener('touchend', () => {
-            const deltaX = touchStartX - touchMoveX;
-            if (Math.abs(deltaX) > swipeThreshold) {
-                deltaX > 0 ? scrollToNext() : scrollToPrevious();
+            const delta = touchStartX - touchMoveX;
+            if (Math.abs(delta) > swipeThreshold) {
+                delta > 0 ? scrollToNext() : scrollToPrevious();
             }
         });
 
-        // Smooth Scroll Navigation
-        let currentIndex = 0;
-        const cards = Array.from(gallery.children);
-        const cardWidth = cards[0].offsetWidth + 32;
-
-        function scrollToNext() {
-            currentIndex = Math.min(currentIndex + 1, cards.length - 1);
-            smoothScroll();
-        }
-
-        function scrollToPrevious() {
-            currentIndex = Math.max(currentIndex - 1, 0);
-            smoothScroll();
-        }
-
-        function smoothScroll() {
-            gallery.scrollTo({
-                left: currentIndex * cardWidth,
-                behavior: 'smooth'
-            });
-        }
-
-        // Handle window resize
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                cardWidth = cards[0].offsetWidth + 32;
-                gallery.scrollLeft = currentIndex * cardWidth;
-            }, 250);
-        });
-
-        // Cart Button Animation
+        // Cart Updates
         document.addEventListener('snipcart.ready', () => {
             Snipcart.store.subscribe(() => {
                 const count = Snipcart.store.getState().cart.items.count;
-                const cartBtn = document.querySelector('.cart-button');
-                cartBtn.dataset.count = count;
-                cartBtn.classList.toggle('snipcart-items-count', count > 0);
+                const cartButton = document.querySelector('.cart-button');
+                cartButton.dataset.count = count;
             });
+        });
+
+        // Responsive Resize Handling
+        window.addEventListener('resize', () => {
+            gallery.scrollLeft = currentIndex * getCardWidth();
         });
     </script>
 </body>
