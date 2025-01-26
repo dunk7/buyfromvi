@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>buyfromvi.com - Violette's Pre-Loved Treasures</title>
     <script async src="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.js"></script>
     <div hidden id="snipcart" data-api-key="ZTk5ZmZjZjctNmZlMC00MjFhLWEyNWYtZWJmMGY3ZjNjYzc4NjM4NzM1MTA1MjU4MTM4MjE2"></div>
@@ -21,7 +21,6 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
         }
 
         /* Header */
@@ -63,46 +62,22 @@
             align-items: center;
             gap: 0.5rem;
             font-size: 1rem;
-            transition: all 0.2s ease;
-            box-shadow: 0 3px 8px rgba(255,102,178,0.3);
-            position: relative;
-        }
-
-        .cart-button::after {
-            content: attr(data-count);
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 24px;
-            height: 24px;
-            background: #ff3366;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            transform: scale(var(--scale, 0));
             transition: transform 0.2s ease;
-        }
-
-        .cart-button[data-count]:not([data-count="0"])::after {
-            --scale: 1;
+            box-shadow: 0 3px 8px rgba(255,102,178,0.3);
         }
 
         /* Product Gallery */
         .gallery-wrapper {
             position: relative;
-            margin: 2rem 0;
-            padding: 0 1rem;
+            margin: 2rem auto;
+            max-width: 1200px;
+            padding: 0 2rem;
         }
 
         .gallery-container {
             display: flex;
             overflow-x: auto;
-            scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
             gap: 2rem;
             padding-bottom: 1rem;
             scrollbar-width: none;
@@ -113,14 +88,11 @@
         }
 
         .product-card {
-            flex: 0 0 calc(100vw - 4rem);
-            max-width: 350px;
+            flex: 0 0 300px;
             background: white;
             border-radius: 20px;
             padding: 1.5rem;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-            scroll-snap-align: center;
-            transition: transform 0.3s ease;
         }
 
         .product-image {
@@ -129,21 +101,6 @@
             object-fit: contain;
             margin-bottom: 1rem;
             border-radius: 15px;
-        }
-
-        .product-details {
-            text-align: center;
-        }
-
-        .snipcart-add-item {
-            width: 100%;
-            padding: 1rem;
-            font-size: 1.1rem;
-            border-radius: 15px !important;
-            margin-top: 1rem;
-            background: #ff66b2 !important;
-            color: white !important;
-            border: none !important;
         }
 
         /* Navigation Arrows */
@@ -156,46 +113,49 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            display: none;
+            display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(255,102,178,0.3);
             border: none;
             z-index: 2;
             opacity: 0.9;
         }
 
-        .gallery-wrapper:hover .nav-arrow {
-            display: flex;
+        .nav-arrow--left { left: 0; }
+        .nav-arrow--right { right: 0; }
+
+        /* Quantity Selector */
+        .snipcart-item-quantity__button {
+            width: 40px !important;
+            height: 40px !important;
+            border-radius: 10px !important;
+            background: #ff66b2 !important;
         }
 
-        .nav-arrow--left { left: 1rem; }
-        .nav-arrow--right { right: 1rem; }
-
-        /* About Section */
-        .about-section {
-            background: linear-gradient(135deg, #fff0f7, #ffffff);
-            padding: 3rem 1rem;
-            margin-top: 3rem;
+        .snipcart-item-quantity__button::before {
+            content: "";
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 4px;
         }
 
-        .about-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
+        .snipcart-item-quantity__button--increment::before {
+            transform: rotate(-45deg);
+            margin-left: -2px;
         }
 
-        .creator-avatar {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #ff66b2;
-            box-shadow: 0 8px 16px rgba(255,102,178,0.2);
+        .snipcart-item-quantity__button--decrement::before {
+            transform: rotate(135deg);
+            margin-right: -2px;
+        }
+
+        .snipcart-item-quantity__quantity {
+            width: 60px !important;
+            height: 40px !important;
+            border-radius: 10px !important;
+            border: 2px solid #ffb3d9 !important;
         }
 
         /* Footer */
@@ -208,58 +168,19 @@
             font-size: 0.9rem;
             border-radius: 20px 20px 0 0;
         }
-
-        /* Cart Overrides */
-        .snipcart-modal__container {
-            border-radius: 20px !important;
-            font-family: 'Comic Neue' !important;
-        }
-
-        .snipcart-item-line__image {
-            width: 100px !important;
-            height: 100px !important;
-            border-radius: 15px !important;
-            object-fit: contain !important;
-        }
-
-        .snipcart-item-line__content {
-            padding-left: 1.5rem !important;
-        }
-
-        .snipcart-item-line__title {
-            font-size: 1.1rem !important;
-            color: #2d2d2d !important;
-        }
-
-        .snipcart-button-primary {
-            background: #ff66b2 !important;
-            border-radius: 15px !important;
-            padding: 1rem 2rem !important;
-            transition: transform 0.2s ease !important;
-        }
-
-        @media (max-width: 480px) {
-            .product-card {
-                flex: 0 0 calc(100vw - 2rem);
-            }
-            
-            .cart-button {
-                padding: 0.7rem;
-            }
-        }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="logo">buyfromvi.com</div>
-        <button class="cart-button snipcart-checkout" data-count="0">
-            🛒 <span class="snipcart-items-count"></span>
+        <button class="cart-button snipcart-checkout">
+            🛒 <span class="snipcart-items-count">0</span>
         </button>
     </header>
 
     <div class="gallery-wrapper">
-        <button class="nav-arrow nav-arrow--left" onclick="scrollToPrevious()">←</button>
-        <button class="nav-arrow nav-arrow--right" onclick="scrollToNext()">→</button>
+        <button class="nav-arrow nav-arrow--left" onclick="scroll(-1)">←</button>
+        <button class="nav-arrow nav-arrow--right" onclick="scroll(1)">→</button>
         
         <div class="gallery-container" id="gallery">
             <article class="product-card">
@@ -327,70 +248,31 @@
     </footer>
 
     <script>
-        // Smooth Scroll Handling
+        // Simple Scroll Function
         const gallery = document.getElementById('gallery');
-        const cards = Array.from(gallery.children);
-        let currentIndex = 0;
-        let isScrolling = false;
+        const cardWidth = 300 + 32; // card width + gap
 
-        function getCardWidth() {
-            return cards[0].offsetWidth + 32;
-        }
-
-        function scrollToIndex(index) {
-            if (isScrolling || index < 0 || index >= cards.length) return;
-            
-            currentIndex = index;
-            isScrolling = true;
-            
-            gallery.scrollTo({
-                left: currentIndex * getCardWidth(),
+        function scroll(direction) {
+            gallery.scrollBy({
+                left: direction * cardWidth,
                 behavior: 'smooth'
             });
-
-            setTimeout(() => isScrolling = false, 500);
         }
 
-        function scrollToNext() {
-            scrollToIndex(Math.min(currentIndex + 1, cards.length - 1));
-        }
-
-        function scrollToPrevious() {
-            scrollToIndex(Math.max(currentIndex - 1, 0));
-        }
-
-        // Touch Handling
+        // Touch Swipe Handling
         let touchStartX = 0;
-        let touchMoveX = 0;
-        const swipeThreshold = 50;
-
+        
         gallery.addEventListener('touchstart', e => {
             touchStartX = e.touches[0].clientX;
-        }, { passive: true });
+        });
 
-        gallery.addEventListener('touchmove', e => {
-            touchMoveX = e.touches[0].clientX;
-        }, { passive: true });
-
-        gallery.addEventListener('touchend', () => {
-            const delta = touchStartX - touchMoveX;
-            if (Math.abs(delta) > swipeThreshold) {
-                delta > 0 ? scrollToNext() : scrollToPrevious();
+        gallery.addEventListener('touchend', e => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > 50) {
+                diff > 0 ? scroll(1) : scroll(-1);
             }
-        });
-
-        // Cart Updates
-        document.addEventListener('snipcart.ready', () => {
-            Snipcart.store.subscribe(() => {
-                const count = Snipcart.store.getState().cart.items.count;
-                const cartButton = document.querySelector('.cart-button');
-                cartButton.dataset.count = count;
-            });
-        });
-
-        // Responsive Resize Handling
-        window.addEventListener('resize', () => {
-            gallery.scrollLeft = currentIndex * getCardWidth();
         });
     </script>
 </body>
