@@ -2,53 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🎀 Crafty Cuties - Handmade Kawaii Crafts</title>
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎀 Crafty Creations - Handmade Treasures</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎀</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <script async src="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.js"></script>
   <div hidden id="snipcart" data-api-key="YOUR_KEY"></div>
 </head>
 <body>
+  <!-- Header -->
   <header class="header">
-    <h1>🌸 Crafty Cuties</h1>
-    <div class="cart-button" onclick="Snipcart.api.theme.cart.open()">
+    <h1 class="logo">🌸 Crafty Creations</h1>
+    <button class="cart-button" onclick="Snipcart.api.theme.cart.open()">
       🛒 Cart <span class="snipcart-items-count">0</span>
-    </div>
+    </button>
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h2>Adorable Handmade Treasures ✨</h2>
-      <p>Made with love & sparkles by your local craft queen!</p>
+  <section class="hero" style="background-image: url('images/hero-bg.jpg')">
+    <div class="hero-overlay">
+      <h2>Handmade with Love & Sparkle ✨</h2>
+      <p>Unique crafts created by your local artist</p>
     </div>
   </section>
 
-  <!-- Product Grid -->
-  <section class="products-section">
-    <h3>✨ Shop Cuties ✨</h3>
-    <div class="products-grid" id="products-container"></div>
-  </section>
+  <!-- Product Gallery -->
+  <main class="gallery-container">
+    <h3 class="gallery-title">Featured Treasures</h3>
+    <div class="product-grid" id="products-container"></div>
+  </main>
 
   <!-- About Section -->
   <section class="about">
+    <img src="images/crafting-avatar.jpg" alt="Artist at work" class="artist-photo">
     <div class="about-content">
-      <img src="images/sister-crafting.jpg" alt="Crafting time!" class="about-image">
-      <div class="about-text">
-        <h2>Meet the Maker 👩🎨</h2>
-        <p>Hi! I'm Lily, a 12-year-old artist who loves creating cute things! Every item is handmade in my rainbow-themed bedroom studio.</p>
-        <div class="social-links">
-          <a href="#" class="social-button">📸 Instagram</a>
-          <a href="#" class="social-button">💌 Email</a>
-        </div>
-      </div>
+      <h2>Meet the Artist</h2>
+      <p>Hi! I'm Emma, a passionate 14-year-old crafter specializing in kawaii-style accessories. Every piece is made with eco-friendly materials and lots of 💖!</p>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
-    <p>Made with ❤️ & glitter • © 2024 Crafty Cuties</p>
+    <p>📧 craftycreations@email.com • 📍 Small Town, USA</p>
+    <p>© 2024 Crafty Creations - All rights reserved</p>
   </footer>
 
   <script src="products.js"></script>
