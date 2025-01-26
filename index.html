@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🎀 Cute Craft Corner</title>
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <title>🎀 Crafty Cuties - Handmade Kawaii Crafts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <!-- Snipcart -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎀</text></svg>">
   <script async src="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.js"></script>
   <div hidden id="snipcart" data-api-key="YOUR_KEY"></div>
 </head>
@@ -17,9 +17,39 @@
     </div>
   </header>
 
-  <div class="products-grid" id="products-container">
-    <!-- Products injected via JS -->
-  </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Adorable Handmade Treasures ✨</h2>
+      <p>Made with love & sparkles by your local craft queen!</p>
+    </div>
+  </section>
+
+  <!-- Product Grid -->
+  <section class="products-section">
+    <h3>✨ Shop Cuties ✨</h3>
+    <div class="products-grid" id="products-container"></div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about">
+    <div class="about-content">
+      <img src="images/sister-crafting.jpg" alt="Crafting time!" class="about-image">
+      <div class="about-text">
+        <h2>Meet the Maker 👩🎨</h2>
+        <p>Hi! I'm Lily, a 12-year-old artist who loves creating cute things! Every item is handmade in my rainbow-themed bedroom studio.</p>
+        <div class="social-links">
+          <a href="#" class="social-button">📸 Instagram</a>
+          <a href="#" class="social-button">💌 Email</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Made with ❤️ & glitter • © 2024 Crafty Cuties</p>
+  </footer>
 
   <script src="products.js"></script>
 </body>
